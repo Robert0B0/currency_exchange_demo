@@ -1,6 +1,6 @@
 const countryDataQuery = require("country-data-query");
 const { getISOByParam } = require("iso-country-currency");
-const { moment } = require("moment");
+const moment = require("moment");
 
 const todayDate = moment(Date.now()).format("DD / MM / YYYY");
 
