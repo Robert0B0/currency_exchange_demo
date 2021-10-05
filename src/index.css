@@ -1,3 +1,4 @@
+/* color themes global variables */
 :root {
   --main-bg-color: #fef7dc;
   --second-bg-color: #c2b8a3;
@@ -17,6 +18,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* scrollbar */
 ::-webkit-scrollbar {
   width: 20px;
 }
@@ -61,7 +63,6 @@ code {
   }
 }
 
-/* cr (currency) components */
 /* card-group */
 
 .group {
@@ -160,8 +161,8 @@ code {
   width: 100px !important;
   height: 50px !important;
 }
-/* modal */
 
+/* modal */
 .modal {
   width: 550px;
   height: 650px;
@@ -223,18 +224,26 @@ code {
 }
 
 .button-bg {
-  margin-top: 10px !important;
-  margin-left: 50px !important;
-  width: 450px !important;
-  height: 80px !important;
+  margin-top: 5px !important;
+  margin-left: 0px !important;
+  width: 555px !important;
+  height: 100px !important;
   background-color: var(--main-bg-color);
 }
 
 .modal-add-button {
-  width: 450px !important;
+  margin-top: 10px !important;
+  margin-left: 10px !important;
+  width: 400px !important;
   height: 80px !important;
 }
 
+.modal-back {
+  margin-top: 10px !important;
+  margin-left: 30px !important;
+}
+
+/* modal items*/
 .item {
   padding-top: 10px;
   padding-left: 10px;

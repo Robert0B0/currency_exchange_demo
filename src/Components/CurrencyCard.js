@@ -19,11 +19,16 @@ export default function CurrencyCard({
   selectedCard,
   setSelectedCard,
 }) {
+  // Conditional currency conversion
   const { id, symbol, currency, name, rate, countryCode } = card;
-  const conversion = inputValue * rate;
+  /* const conversion = inputValue * rate; */
+  const currencyRate = (1 / rate) * selectedCard.rate;
+  const conversion = inputValue / currencyRate;
+
   return (
     <Card className={`card ${selected && `card-selected`}`}>
       <Box style={{ display: "flex" }}>
+        {/* Card Flag */}
         <div className="card-media">
           <ReactCountryFlag
             className="card-img"
@@ -36,6 +41,8 @@ export default function CurrencyCard({
             </Typography>
           </div>
         </div>
+
+        {/* Card Info Content */}
         <CardContent className="card-content">
           <Typography
             variant="h6"
@@ -45,10 +52,12 @@ export default function CurrencyCard({
             }}
           >
             {symbol}{" "}
-            {conversion
-              .toFixed(2)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            {!selected
+              ? conversion
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              : inputValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </Typography>
           <Typography variant="h6" style={{ width: "190px", height: "50px" }}>
             {currency} - {name}
@@ -59,10 +68,12 @@ export default function CurrencyCard({
             </Typography>
           ) : (
             <Typography variant="h6" style={{ marginTop: "20px" }}>
-              1 {selectedCard.currency} = {rate} {currency}
+              1 {selectedCard.currency} = {currencyRate.toFixed(2)} {currency}
             </Typography>
           )}
         </CardContent>
+
+        {/* Card Interactive Buttons */}
         <div>
           <Button
             variant="contained"

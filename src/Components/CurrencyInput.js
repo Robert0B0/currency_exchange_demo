@@ -17,11 +17,13 @@ export default function CurrencyInput({
   setSelectedCard,
   selectedCard,
 }) {
+  //menu item selection
   const selectCard = (id) => {
     const foundCard = cards.find((card) => card.id === id);
     setSelectedCard(foundCard);
   };
 
+  //conditioned input value handler
   const handleChange = (value) => {
     if (value > 0 && value < 99999999) {
       setInputValue(value);
@@ -30,6 +32,7 @@ export default function CurrencyInput({
 
   return (
     <Box className="input">
+      {/* Menu Selector */}
       <FormControl variant="filled" sx={{ m: 1, minWidth: 80 }}>
         <InputLabel id="currency-select">Currency</InputLabel>
         <Select
@@ -62,6 +65,8 @@ export default function CurrencyInput({
           })}
         </Select>
       </FormControl>
+
+      {/* Value Input */}
       <TextField
         className="value-input"
         id="currency-input"

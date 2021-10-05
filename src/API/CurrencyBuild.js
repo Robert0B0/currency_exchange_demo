@@ -1,5 +1,8 @@
 const countryDataQuery = require("country-data-query");
 const { getISOByParam } = require("iso-country-currency");
+const { moment } = require("moment");
+
+const todayDate = moment(Date.now()).format("DD / MM / YYYY");
 
 const countries = [
   "Germany",
@@ -40,7 +43,70 @@ const countries = [
   "Vietnam",
 ];
 
-export const getData = (numberOfCountries, URL) => {
+let testRates = {
+  EUR: 1,
+  NOK: 9.963647,
+  PLN: 4.595917,
+  RON: 4.9541,
+  UAH: 30.795203,
+  GBP: 0.853223,
+  USD: 1.15975,
+  BRL: 6.326668,
+  CAD: 1.463443,
+  CNY: 7.47656,
+  ALL: 121.43293,
+  AUD: 1.596122,
+  AZN: 1.971837,
+  BGN: 1.955299,
+  HUF: 356.159413,
+  INR: 86.415902,
+  ISK: 148.819086,
+  ILS: 3.742886,
+  JPY: 128.934108,
+  HRK: 7.494767,
+  DKK: 7.438057,
+  EGP: 18.207968,
+  MXN: 23.826256,
+  NZD: 1.670464,
+  RUB: 84.190226,
+  SAR: 4.349426,
+  RSD: 117.436757,
+  SGD: 1.575121,
+  ZAR: 17.481625,
+  SEK: 10.147355,
+};
+
+const fetchCurrency = (currencies) => {
+  let payload = { rates: [], date: "" };
+  const url = "http://api.exchangeratesapi.io/v1";
+
+  const params = (paramsObj) => {
+    return new URLSearchParams({
+      access_key: "f78f714ef9ff0589eb35c5b2d615799d",
+      ...paramsObj,
+    });
+  };
+
+  const getLatest = (options) => {
+    fetch(`${url}/latest?${params(options)}`)
+      .then((response) => {
+        response.json().then((data) => {
+          payload.rates = data.rates;
+          payload.date = data.date;
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //getLatest({ symbols: currencies });
+  payload.rates = testRates;
+  payload.date = todayDate;
+  return payload;
+};
+
+export const getData = (numberOfCountries) => {
+  //Constructing the currencies array of objects
+  let payload = { currencies: [], date: "" };
   let data = [];
   for (let i = 0; i < numberOfCountries + 1; i++) {
     try {
@@ -62,5 +128,31 @@ export const getData = (numberOfCountries, URL) => {
       }
     } catch (err) {}
   }
-  return data;
+
+  let crs = "";
+  data.map((a) => {
+    crs += a.currency + ",";
+  });
+
+  const rates_data = fetchCurrency(crs);
+
+  //Adding received rates to their currencies
+  data.forEach((item) => {
+    item.rate = rates_data.rates[item.currency];
+  });
+
+  //Sort the array by the currency name
+  //Making sure EURO is first in the ordered array
+  data.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+  const euIndex = data.findIndex((ob) => ob.currency === "EUR");
+  const aux = data[euIndex];
+  data[euIndex] = data[0];
+  data[0] = aux;
+
+  payload.currencies = data;
+  payload.date = rates_data.date;
+
+  console.log(("payload:", payload));
+
+  return payload;
 };

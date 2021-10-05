@@ -8,6 +8,7 @@ export default function CurrencyCardGroup({
   setSelectedCard,
   inputValue,
 }) {
+  //Cards remove function component
   const removeCard = (id) => {
     const newCards = cards.filter((card) => card.id !== id);
     setCards(newCards);

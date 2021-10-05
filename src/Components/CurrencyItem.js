@@ -18,6 +18,8 @@ export default function CurrencyItem({
 }) {
   const { id, symbol, name, countryCode } = currency;
 
+  //Item Add/Remove function
+
   const itemAction = () => {
     if (!selected) {
       addItem(id);
@@ -35,11 +37,14 @@ export default function CurrencyItem({
             flexDirection: "row",
           }}
         >
+          {/* Card Flag */}
           <ReactCountryFlag
             className="item-img"
             countryCode={countryCode}
             svg
           />
+
+          {/* Card Name and CheckBox */}
           <div className="item-name-container">
             <Typography variant="h4" fontWeight="bold" className="item-symbol">
               {symbol}

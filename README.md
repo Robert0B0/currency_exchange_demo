@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+**Currency Exchange web app** - by Balog Robert.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+demonstrative hosted version: https://currency-exchange-webapp.netlify.app/
 
-## Available Scripts
+Installation Steps:
 
-In the project directory, you can run:
+```
+    after cloning the Git repo, in the terminal/command prompt(cmd),
+    type "npm install" (without quotes) and wait for module installation,
+    followed by "npm start" for running the dev server.
+```
 
-### `npm start`
+Project technical structure and functionality:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+built with React.JS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**libraries:**
 
-### `npm test`
+```
+Material UI library  - used for quick stilling plus custom CSS;
+exchangeratesapi API - provided API for fetching currencies rates;
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**other complementary used imports:**
 
-### `npm run build`
+```
+"react-country-flag" - for displaying country flags,
+"country-data-query" - for fetching countries from its currencies;
+"iso-country-currency" - for converting country to its ISO code (used by country-flag)
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The project is split into its components like the diagram below:
+Each component has "Currency" at the start for differentiating with Material UI components.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+-API:
+  -CurrencyBuild
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-App:
+    -CurrencyCardGroup
+        -CurrencyCard
+    -CurrencyCardInput
+        -CurrencyCardMenu
+    -CurrencyModal
+        -CurrencyItem
+```
 
-### `npm run eject`
+**-Fetching data:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The getData() function from CurrencyBuild is called to build the array of currency objects
+which will be used by all the apps components.
+It's set to build 30 currencies (for now) and holds proprieties such as rate, currency name, country flag ISO code, etc.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**-Currency Cards:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+    On initial render the EURO currency card is present by default.
+    The selected card can be done by the drop down menu or by the blue select button present on each card
+    Closing is done by pressing the red X button.
+    The buttons are disabled if the card is the selected one.
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**-Input **
 
-## Learn More
+```
+    The input component allows the selection of the primary currency card, complementary to the card select button.
+    The number input value is set to never reach zero or below or higher that 9999999.
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**-Modal**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+    The modal holds all the present loaded currencies that are not already present as cards.
+    The add button is disabled if no currencies are selected.
+    Each item is clickable and shows a checkmark if is selected.
+    The modal closes on selecting outside of it or by pressing the "add currencies" button.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
