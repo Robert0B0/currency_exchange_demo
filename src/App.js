@@ -8,14 +8,11 @@ import {
 } from "./Components/index";
 import AddIcon from "@mui/icons-material/Add";
 
-import moment from "moment";
-
 import { getData } from "./API/CurrencyBuild";
-
-const todayDate = moment(Date.now()).format("DD / MM / YYYY");
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [todayDate, setTodayDate] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [inputValue, setInputValue] = useState(1);
@@ -23,12 +20,12 @@ function App() {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
 
+  //calling the construction of currency data
   useEffect(() => {
-    const URL = "";
-    const data = getData(10, URL);
-    setAllCurrencies(data);
-    /* const response = ''
-    console.log(response) */
+    const data = getData(30);
+    console.log(data);
+    setAllCurrencies(data.currencies);
+    setTodayDate(data.date);
   }, []);
 
   useEffect(() => {
@@ -41,20 +38,35 @@ function App() {
 
   return (
     <section>
+      {/* title section */}
       <div className="title">
         <Typography variant="h4">Currency Exchange</Typography>
         <Typography variant="h6">Today: {todayDate}</Typography>
       </div>
 
+      {/* Cards Group component */}
       {loading ? (
-        <Typography variant="h2">Loading...</Typography>
+        <Typography
+          variant="h2"
+          style={{ display: "flex", justifySelf: "center" }}
+        >
+          Loading...
+        </Typography>
       ) : cards.length > 0 ? (
         <CurrencyCardGroup
-          {...{ cards, setCards, selectedCard, setSelectedCard, inputValue }}
+          {...{
+            cards,
+            setCards,
+            selectedCard,
+            setSelectedCard,
+            inputValue,
+          }}
         />
       ) : (
         <Typography variant="h2">Add cards</Typography>
       )}
+
+      {/* Input component */}
       <CurrencyInput
         {...{
           inputValue,
@@ -66,6 +78,8 @@ function App() {
           setSelectedCard,
         }}
       />
+
+      {/* Modal component */}
       <div className="modal-container">
         <Button
           variant="contained"
