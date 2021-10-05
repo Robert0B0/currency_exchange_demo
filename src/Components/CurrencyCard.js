@@ -16,6 +16,7 @@ export default function CurrencyCard({
   removeCard,
   inputValue,
   selected,
+  selectedCard,
   setSelectedCard,
 }) {
   const { id, symbol, currency, name, rate, countryCode } = card;
@@ -30,15 +31,18 @@ export default function CurrencyCard({
             svg
           />
           <div className="card-symbol">
-            <Typography variant="h5" style={{ fontWeight: "bolder" }}>
+            <Typography variant="h6" style={{ fontWeight: "bolder" }}>
               {currency}
             </Typography>
           </div>
         </div>
         <CardContent className="card-content">
           <Typography
-            variant="h5"
-            style={{ fontWeight: "bold", width: "150px" }}
+            variant="h6"
+            style={{
+              fontWeight: "bold",
+              width: "200px",
+            }}
           >
             {symbol}{" "}
             {conversion
@@ -46,16 +50,22 @@ export default function CurrencyCard({
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </Typography>
-          <Typography variant="h5" style={{ width: "180px" }}>
-            {name}
+          <Typography variant="h6" style={{ width: "190px", height: "50px" }}>
+            {currency} - {name}
           </Typography>
-          <Typography variant="h6" style={{ marginTop: "20px" }}>
-            1 {currency} = 1 {currency}
-          </Typography>
+          {selected ? (
+            <Typography variant="h6" style={{ marginTop: "20px" }}>
+              1 {currency} = 1 {currency}
+            </Typography>
+          ) : (
+            <Typography variant="h6" style={{ marginTop: "20px" }}>
+              1 {selectedCard.currency} = {rate} {currency}
+            </Typography>
+          )}
         </CardContent>
         <div>
           <Button
-            variant="outlined"
+            variant="contained"
             className="card-x"
             color="error"
             onClick={() => removeCard(id)}
@@ -65,7 +75,7 @@ export default function CurrencyCard({
           </Button>
 
           <Button
-            variant="outlined"
+            variant="contained"
             className="card-pick"
             color="primary"
             onClick={() => setSelectedCard(card)}

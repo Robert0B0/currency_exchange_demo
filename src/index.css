@@ -1,6 +1,6 @@
 :root {
   --main-bg-color: #fef7dc;
-  --second-bg-color: #fef7dc;
+  --second-bg-color: #c2b8a3;
   --card-bg-color: #c2b8a3;
   --card-select-color: rgb(220, 221, 203);
   --border-color: #a19882;
@@ -30,7 +30,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--main-bg-color);
+  background: var(--second-bg-color);
 }
 
 code {
@@ -39,7 +39,8 @@ code {
 }
 
 .title {
-  padding-top: 5vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,24 +48,49 @@ code {
   background-color: var(--second-bg-color);
 }
 
+@media (max-width: 600px) {
+  .title {
+    font-size: smaller !important;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+  }
+}
+
 /* cr (currency) components */
 /* card-group */
+
 .group {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 50vh;
-  height: 400px;
+  height: 600px;
 
   overflow-y: scroll;
 }
+
+@media (min-width: 600px) {
+  .group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 550px;
+
+    overflow-y: scroll;
+  }
+}
+
 /* card */
 .card {
   width: 400px;
   height: 180px;
   background-color: var(--card-bg-color) !important;
-  border-radius: 5%;
   border: 2px solid var(--border-color);
   margin: 10px 10px 10px 10px;
 }
@@ -94,8 +120,8 @@ code {
 
 .card-content {
   width: 200px;
+  height: 10px;
   margin-top: 20px;
-  margin-left: 10px;
 }
 
 .card-x {
@@ -108,7 +134,7 @@ code {
 .card-pick {
   position: absolute;
   right: 20px !important;
-  top: 90px !important;
+  top: 35px !important;
   height: 40px !important;
 }
 
@@ -118,6 +144,7 @@ code {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  background-color: var(--second-bg-color);
 }
 
 .select-input {
@@ -127,6 +154,7 @@ code {
 .value-input {
   background-color: var(--card-select-color) !important;
 }
+
 /* menu */
 .menu-button {
   width: 100px !important;
@@ -148,11 +176,21 @@ code {
 
 .modal-items {
   width: 550px;
-  height: 570px;
+  height: 700px;
   border: 3px solid var(--border-color);
   box-shadow: 24;
   background-color: var(--card-bg-color);
   overflow-x: hidden;
+}
+@media (min-width: 600px) {
+  .modal-items {
+    width: 550px;
+    height: 700px;
+    border: 3px solid var(--border-color);
+    box-shadow: 24;
+    background-color: var(--card-bg-color);
+    overflow-x: hidden;
+  }
 }
 
 .modal-container {
@@ -160,11 +198,28 @@ code {
   display: flex;
   justify-content: center;
   padding-top: 10px;
+  background-color: var(--second-bg-color);
+}
+
+@media (max-width: 500px) {
+  .modal-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .modal-button {
   width: 250px !important;
   height: 80px !important;
+  margin-bottom: 10px !important;
+}
+
+@media (max-width: 600px) {
+  .modal-button {
+    width: 250px !important;
+    height: 50px !important;
+  }
 }
 
 .button-bg {

@@ -20,7 +20,14 @@ export default function CurrencyCardGroup({
         return (
           <CurrencyCard
             key={index}
-            {...{ card, removeCard, inputValue, selected, setSelectedCard }}
+            {...{
+              card,
+              removeCard,
+              inputValue,
+              selected,
+              selectedCard,
+              setSelectedCard,
+            }}
           />
         );
       })}

@@ -8,10 +8,9 @@ import {
 } from "./Components/index";
 import AddIcon from "@mui/icons-material/Add";
 
-import { currencies } from "./API/data";
 import moment from "moment";
 
-import { getData } from "./API/responseBuid";
+import { getData } from "./API/CurrencyBuild";
 
 const todayDate = moment(Date.now()).format("DD / MM / YYYY");
 
@@ -25,8 +24,11 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
 
   useEffect(() => {
-    const data = getData(10);
+    const URL = "";
+    const data = getData(10, URL);
     setAllCurrencies(data);
+    /* const response = ''
+    console.log(response) */
   }, []);
 
   useEffect(() => {
@@ -40,9 +42,10 @@ function App() {
   return (
     <section>
       <div className="title">
-        <Typography variant="h2">Currency Exchange</Typography>
-        <Typography variant="h4">Today: {todayDate}</Typography>
+        <Typography variant="h4">Currency Exchange</Typography>
+        <Typography variant="h6">Today: {todayDate}</Typography>
       </div>
+
       {loading ? (
         <Typography variant="h2">Loading...</Typography>
       ) : cards.length > 0 ? (
